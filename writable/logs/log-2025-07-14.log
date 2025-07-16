@@ -1,0 +1,1891 @@
+CRITICAL - 2025-07-14 05:33:08 --> ErrorException: Undefined variable $bulan
+[Method: POST, Route: laba/simpan_keuangan]
+in APPPATH\Controllers\Laba.php on line 86.
+ 1 APPPATH\Controllers\Laba.php(86): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $bulan', 'C:\\Users\\Jef\\Downloads\\showroom-main\\app\\Controllers\\Laba.php', 86)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->simpan_keuangan()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+ERROR - 2025-07-14 05:49:34 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+      ...' at line 18 in C:\Users\Jef\Downloads\showroom-main\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\Users\Jef\Downloads\showroom-main\system\Database\MySQLi\Connection.php(327): mysqli->query('\n            SE...', 0)
+#1 C:\Users\Jef\Downloads\showroom-main\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('\n            SE...')
+#2 C:\Users\Jef\Downloads\showroom-main\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('\n            SE...')
+#3 C:\Users\Jef\Downloads\showroom-main\app\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('\n            SE...')
+#4 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(933): App\Controllers\Laba->index()
+#5 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+#6 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jef\Downloads\showroom-main\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jef\Downloads\showroom-main\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\Users\Jef\Downloads\showroom-main\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 C:\Users\Jef\Downloads\showroom-main\system\rewrite.php(44): require_once('C:\\Users\\Jef\\Do...')
+#11 {main}
+CRITICAL - 2025-07-14 05:49:34 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+      ...' at line 18
+[Method: GET, Route: laba]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+            SELECT 
+                MONTH(tanggal_jual) AS bulan,
+                YEAR(tanggal_jual) AS tahun,
+                SUM(harga_jual) AS total_penjualan,
+                SUM(harga_beli + total_perbaikan) AS total_modal,
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit >= 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit > 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_laba
+
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit < 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit < 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_rugi
+
+            FROM sold_mobil
+            GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+            ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+        ')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+CRITICAL - 2025-07-14 05:49:34 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+      ...' at line 18
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('
+            SELECT 
+                MONTH(tanggal_jual) AS bulan,
+                YEAR(tanggal_jual) AS tahun,
+                SUM(harga_jual) AS total_penjualan,
+                SUM(harga_beli + total_perbaikan) AS total_modal,
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit >= 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit > 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_laba
+
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit < 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit < 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_rugi
+
+            FROM sold_mobil
+            GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+            ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+        ')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('
+            SELECT 
+                MONTH(tanggal_jual) AS bulan,
+                YEAR(tanggal_jual) AS tahun,
+                SUM(harga_jual) AS total_penjualan,
+                SUM(harga_beli + total_perbaikan) AS total_modal,
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit >= 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit > 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_laba
+
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit < 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit < 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_rugi
+
+            FROM sold_mobil
+            GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+            ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+        ')
+ 3 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+            SELECT 
+                MONTH(tanggal_jual) AS bulan,
+                YEAR(tanggal_jual) AS tahun,
+                SUM(harga_jual) AS total_penjualan,
+                SUM(harga_beli + total_perbaikan) AS total_modal,
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit >= 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit > 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_laba
+
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit < 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit < 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_rugi
+
+            FROM sold_mobil
+            GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+            ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+        ')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+CRITICAL - 2025-07-14 05:49:34 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+      ...' at line 18
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('
+            SELECT 
+                MONTH(tanggal_jual) AS bulan,
+                YEAR(tanggal_jual) AS tahun,
+                SUM(harga_jual) AS total_penjualan,
+                SUM(harga_beli + total_perbaikan) AS total_modal,
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit >= 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit > 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_laba
+
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit < 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit < 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_rugi
+
+            FROM sold_mobil
+            GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+            ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+        ', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('
+            SELECT 
+                MONTH(tanggal_jual) AS bulan,
+                YEAR(tanggal_jual) AS tahun,
+                SUM(harga_jual) AS total_penjualan,
+                SUM(harga_beli + total_perbaikan) AS total_modal,
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit >= 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit > 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_laba
+
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit < 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit < 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_rugi
+
+            FROM sold_mobil
+            GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+            ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+        ')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('
+            SELECT 
+                MONTH(tanggal_jual) AS bulan,
+                YEAR(tanggal_jual) AS tahun,
+                SUM(harga_jual) AS total_penjualan,
+                SUM(harga_beli + total_perbaikan) AS total_modal,
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit >= 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit > 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_laba
+
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit < 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit < 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_rugi
+
+            FROM sold_mobil
+            GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+            ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+        ')
+ 4 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+            SELECT 
+                MONTH(tanggal_jual) AS bulan,
+                YEAR(tanggal_jual) AS tahun,
+                SUM(harga_jual) AS total_penjualan,
+                SUM(harga_beli + total_perbaikan) AS total_modal,
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit >= 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit > 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_laba
+
+                SUM(
+                  CASE 
+                    WHEN profit = 0 THEN 
+                      CASE 
+                        WHEN profit_credit < 0 THEN profit_credit 
+                        ELSE 0 
+                      END
+                    WHEN profit < 0 THEN profit
+                    ELSE 0
+                  END
+                ) AS total_rugi
+
+            FROM sold_mobil
+            GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+            ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+        ')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+ERROR - 2025-07-14 06:29:59 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12 in C:\Users\Jef\Downloads\showroom-main\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\Users\Jef\Downloads\showroom-main\system\Database\MySQLi\Connection.php(327): mysqli->query('\n    SELECT \n  ...', 0)
+#1 C:\Users\Jef\Downloads\showroom-main\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('\n    SELECT \n  ...')
+#2 C:\Users\Jef\Downloads\showroom-main\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('\n    SELECT \n  ...')
+#3 C:\Users\Jef\Downloads\showroom-main\app\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('\n    SELECT \n  ...')
+#4 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(933): App\Controllers\Laba->index()
+#5 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+#6 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jef\Downloads\showroom-main\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jef\Downloads\showroom-main\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\Users\Jef\Downloads\showroom-main\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 C:\Users\Jef\Downloads\showroom-main\system\rewrite.php(44): require_once('C:\\Users\\Jef\\Do...')
+#11 {main}
+CRITICAL - 2025-07-14 06:29:59 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12
+[Method: GET, Route: laba]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+CRITICAL - 2025-07-14 06:29:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 3 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+CRITICAL - 2025-07-14 06:29:59 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 4 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+ERROR - 2025-07-14 06:30:01 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12 in C:\Users\Jef\Downloads\showroom-main\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\Users\Jef\Downloads\showroom-main\system\Database\MySQLi\Connection.php(327): mysqli->query('\n    SELECT \n  ...', 0)
+#1 C:\Users\Jef\Downloads\showroom-main\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('\n    SELECT \n  ...')
+#2 C:\Users\Jef\Downloads\showroom-main\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('\n    SELECT \n  ...')
+#3 C:\Users\Jef\Downloads\showroom-main\app\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('\n    SELECT \n  ...')
+#4 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(933): App\Controllers\Laba->index()
+#5 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+#6 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jef\Downloads\showroom-main\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jef\Downloads\showroom-main\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\Users\Jef\Downloads\showroom-main\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 C:\Users\Jef\Downloads\showroom-main\system\rewrite.php(44): require_once('C:\\Users\\Jef\\Do...')
+#11 {main}
+CRITICAL - 2025-07-14 06:30:01 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12
+[Method: GET, Route: laba]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+CRITICAL - 2025-07-14 06:30:01 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 3 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+CRITICAL - 2025-07-14 06:30:01 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 4 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+ERROR - 2025-07-14 06:30:05 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12 in C:\Users\Jef\Downloads\showroom-main\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\Users\Jef\Downloads\showroom-main\system\Database\MySQLi\Connection.php(327): mysqli->query('\n    SELECT \n  ...', 0)
+#1 C:\Users\Jef\Downloads\showroom-main\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('\n    SELECT \n  ...')
+#2 C:\Users\Jef\Downloads\showroom-main\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('\n    SELECT \n  ...')
+#3 C:\Users\Jef\Downloads\showroom-main\app\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('\n    SELECT \n  ...')
+#4 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(933): App\Controllers\Laba->index()
+#5 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+#6 C:\Users\Jef\Downloads\showroom-main\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jef\Downloads\showroom-main\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jef\Downloads\showroom-main\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\Users\Jef\Downloads\showroom-main\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 C:\Users\Jef\Downloads\showroom-main\system\rewrite.php(44): require_once('C:\\Users\\Jef\\Do...')
+#11 {main}
+CRITICAL - 2025-07-14 06:30:05 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12
+[Method: GET, Route: laba]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+CRITICAL - 2025-07-14 06:30:05 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 3 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
+CRITICAL - 2025-07-14 06:30:05 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE ...' at line 12
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 4 APPPATH\Controllers\Laba.php(13): CodeIgniter\Database\BaseConnection->query('
+    SELECT 
+        MONTH(tanggal_jual) AS bulan,
+        YEAR(tanggal_jual) AS tahun,
+        SUM(
+            harga_jual + 
+            CASE 
+                WHEN profit = 0 THEN IFNULL(profit_credit, 0)
+                WHEN profit_credit = 0 THEN IFNULL(profit, 0)
+                ELSE IFNULL(profit, 0) + IFNULL(profit_credit, 0)
+            END
+        ) AS total_penjualan
+        SUM(harga_beli + total_perbaikan) AS total_modal,
+
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) >= 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+            ) AS total_laba,
+        
+        SUM(
+        CASE 
+            WHEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            ) < 0 
+            THEN (
+                CASE 
+                    WHEN profit = 0 THEN profit_credit
+                    WHEN profit_credit = 0 THEN profit
+                    ELSE (profit + profit_credit)
+                END
+            )
+            ELSE 0
+        END
+        ) AS total_rugi
+
+    FROM sold_mobil
+    GROUP BY YEAR(tanggal_jual), MONTH(tanggal_jual)
+    ORDER BY YEAR(tanggal_jual) DESC, MONTH(tanggal_jual) DESC
+')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Laba->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Laba))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Jef\\Downloads\\showroom-main\\public\\index.php')
